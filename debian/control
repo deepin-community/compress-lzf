@@ -1,0 +1,24 @@
+Source: compress-lzf
+Section: java
+Priority: optional
+Maintainer: Debian Java maintainers <pkg-java-maintainers@lists.alioth.debian.org>
+Build-Depends:
+ debhelper (>= 11),
+ default-jdk,
+ libmaven-bundle-plugin-java,
+ maven-debian-helper (>= 2.0),
+ testng
+Standards-Version: 4.3.0
+Vcs-Git: https://salsa.debian.org/java-team/compress-lzf.git
+Vcs-Browser: https://salsa.debian.org/java-team/compress-lzf
+Homepage: http://github.com/ning/compress
+
+Package: libcompress-lzf-java
+Architecture: all
+Depends: ${maven:Depends}, ${misc:Depends}
+Recommends: ${maven:OptionalDepends}
+Description: Java library for encoding and decoding data in LZF format
+ Compression codec for LZF encoding for particularly
+ encoding/decoding, with reasonable compression. Compressor is basic
+ Lempel-Ziv codec, without Huffman (deflate/gzip) or statistical
+ post-encoding.

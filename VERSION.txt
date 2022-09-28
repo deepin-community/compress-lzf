@@ -1,0 +1,92 @@
+1.0.4 (12-Mar-2017)
+
+#43: estimateMaxWorkspaceSize() is too small
+ (reported by Roman L, leventow@github)
+
+1.0.3 (15-Aug-2014)
+
+#37: Incorrect de-serialization on Big Endian systems, due to incorrect usage of #numberOfTrailingZeroes
+ (pointed out by Gireesh P, gireeshpunathil@github)
+
+1.0.2 (09-Aug-2014)
+
+#38: Overload of factory methods and constructors in Encoders and Streams
+ to allow specifying custom `BufferRecycler` instance
+ (contributed by `serverperformance@github`)
+#39: VanillaChunkEncoder.tryCompress() not using 'inPos' as it should, potentially
+ causing corruption in rare cases
+ (contributed by Ryan E, rjerns@github)
+
+1.0.1 (08-Apr-2014)
+
+#35: Fix a problem with closing of `DeflaterOutputStream` (for gzip output)
+ that could cause corrupt state for reusable `Deflater`
+ (contribyted by thmd@github)
+
+1.0.0 (02-Dec-2013)
+
+#34: Add `ChunkEncoder.appendEncodedIfCompresses()` for conditional compression;
+ useful for building efficient "compress but only if it makes enough difference"
+ processing systems
+
+0.9.9 (25-Sep-2013)
+
+#14: Added parallel LZF compression, contributed by Cedrik
+ (javabean@github)
+#25: Allow early termination of push-style `Uncompressor` operation
+#32: Fix for a rare NPE
+ (suggested by francoisforster@github)
+
+0.9.8 (09-Mar-2013)
+
+#24: Problems uncompressing certain types of binary documents
+- Minor perf improvement for 'appendEncoded', was not reusing buffers
+
+0.9.7 (06-Mar-2013)
+
+#23: Add UnsafeChunkEncoder that uses 'sun.misc.Unsafe' for additional Oomph.
+* Add LZFEncoder.estimateMaxWorkspaceSize() to help allocate work buffers.
+#22: Add method(s) to allow encoding into caller-provided (pre-allocated) buffer.
+
+0.9.6 (05-Sep-2012)
+
+#17: Add IOException subtypes 'LZFException' and 'GZIPException' (with
+  common supertype of 'CompressionFormatException) to allow for better
+  catching of decompression errors
+#19: (more) Efficient skipping with LZFInputStream, LZFFileInputStream;
+  can skip full chunks without decoding -- much faster (as per simple tests)
+
+0.9.5 (25-May-2012)
+
+* Add 'LZFCompressingInputStream' to allow streaming compression
+ "in reverse" (compared to LZFOutputStream)
+* Add GZIP support functionality:
+ * 'OptimizedGZIPInputStream', 'OptimizedGZIPOutputStream' which add buffer
+   (and Inflater/Deflater) recycling for improved performance compared to
+  default JDK implementations (uses same native ZLIB library for actual
+  decompression)
+* Add "push-mode" handler, 'Uncompressor' to be used for un-/decompression
+  with non-blocking push-style data sources (like async-http-client)
+ * Implementations for LZF (LZFUncompressor) and GZIP (GZIPUncompressor)
+ * 'UncompressorOutputStream' convenience wrapper to expose 'Uncompressor'
+   as 'OutputStream'
+
+0.9.3
+
+* Fixed Issue #12: Command-line tool out of memory
+ (reported by nodarret@github)
+* Implemented Issue #16: Add LZFInputStream.readAndWrite(...) method for copying
+  uncompressed data, avoiding an intermediate copy.
+* Fix for Issue #15: LZFDecoder not passing 'offset', 'length' params
+  (reported by T.Effland)
+* Fix for Issue #13: problems with Unsafe decoder on some platforms
+
+0.9.0 (and prior)
+
+* Rewrote decoder to allow ChunkDecoder variants, to allow optional use of
+  sun.misc.Unsafe (which can boost uncompression speed by up to +50%)
+* #11: Input/OutputStreams not throwing IOException if reading/writing
+   after close() called, should be.
+  (reported by Dain S)
+* Fix an NPE in BufferRecycler
+  (reported by Matt Abrams, abramsm@gmail.com)
